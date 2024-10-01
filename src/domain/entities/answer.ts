@@ -11,8 +11,33 @@ interface AnswerProps {
 }
 
 export class Answer extends Entity<AnswerProps> {
+  get authorId() {
+    return this.props.authorId;
+  }
+
+  get questionId() {
+    return this.props.questionId;
+  }
+
   get content() {
     return this.props.content;
+  }
+
+  set content(content: string) {
+    this.props.content = content;
+    this.touch();
+  }
+
+  get createdAt() {
+    return this.props.createdAt;
+  }
+
+  get updatedAt() {
+    return this.props.updatedAt;
+  }
+
+  get excerpt() {
+    return this.content.substring(0, 120).trimEnd().concat("...");
   }
 
   static create(
@@ -20,5 +45,9 @@ export class Answer extends Entity<AnswerProps> {
     id?: UniqueEntityID,
   ) {
     return new Answer(props, id);
+  }
+
+  private touch() {
+    this.props.updatedAt = new Date();
   }
 }
