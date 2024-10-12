@@ -79,6 +79,8 @@ export class Question extends Entity<QuestionProps> {
       },
       id,
     );
+
+    return question;
   }
 
   private touch() {
